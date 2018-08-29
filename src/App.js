@@ -10,13 +10,14 @@ class App extends Component {
     this.state = {
       hours: '00',
       minutes: '00',
-      seconds: '00'
+      seconds: '00',
+      running: false
     };
 
     this.handleInput = this.handleInput.bind(this);
     // this.handlePause = this.handleSSN.bind(this);
     // this.handleReset = this.handleReset.bind(this);
-    // this.handleStart = this.handleTick.bind(this);
+    this.handleStart = this.handleStart.bind(this);
   }
 
 
@@ -29,8 +30,16 @@ class App extends Component {
     this.setState(newState);
   }
 
-  // handleStart
-  // start timer
+  handleStart() {
+    let hours = parseInt(this.state.hours);
+    let minutes = parseInt(this.state.minutes);
+    let seconds = parseInt(this.state.seconds);
+    let validStart =  hours + minutes + seconds > 0;
+    if (validStart && this.state.running === false) {
+      // setInterval(tick, 1000);
+      this.setState({running: true});
+    }
+  }
 
   // handlePause
   // allow user to pause timer
@@ -48,6 +57,7 @@ class App extends Component {
         <p>To use the timer, use it like you use all other timers.</p>
         <Timer 
           handleInput={this.handleInput}
+          handleStart={this.handleStart}
           time={`${this.state.hours}:${this.state.minutes}:${this.state.seconds}`}
         ></Timer>
       </div>
