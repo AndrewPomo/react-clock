@@ -47,12 +47,22 @@ class App extends Component {
 
   tick() {
     let seconds = parseInt(this.state.seconds);
+    let minutes = parseInt(this.state.minutes);
+    let hours = parseInt(this.state.hours);
+    // if there 
     if (seconds > 0) {
       seconds -= 1;
+    } else if (minutes > 0) {
+      seconds = 59;
+      minutes -= 1;
+    } else if (hours > 0) {
+      seconds = 59;
+      minutes = 59;
+      hours -= 1;
     } else {
       clearInterval(this.state.interval);
     }
-    this.setState({seconds});
+    this.setState({seconds, minutes, hours});
 
   }
 
