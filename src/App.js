@@ -24,9 +24,13 @@ class App extends Component {
   handleInput(e) {
     // allow user to input their desired countdown time
     const newState = {};
-    newState[e.target.name] = e.target.value;
+    const val = e.target.value;
+    newState[e.target.name] = val.length === 1 ? `0${val}` : `${val}`;
     this.setState(newState);
   }
+
+  // handleStart
+  // start timer
 
   // handlePause
   // allow user to pause timer
@@ -34,16 +38,17 @@ class App extends Component {
   // handleClear
   // allow user to clear counter to zero
 
-  // handleStart
-  // start timer
+  
 
   render() {
     return (
       <div className="App">
         <h1>Welcome to the Timer</h1>
-        <p>To use the timer, you use it like you use all other timers.</p>
+        <p>The interesting thing about this timer is that it is a timer.</p>
+        <p>To use the timer, use it like you use all other timers.</p>
         <Timer 
           handleInput={this.handleInput}
+          time={`${this.state.hours}:${this.state.minutes}:${this.state.seconds}`}
         ></Timer>
       </div>
     );
