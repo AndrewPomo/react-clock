@@ -1,18 +1,29 @@
+/* eslint-disable */
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  // handleInput
+  // allow user to input their desired countdown time
+
+  // handlePause
+  // allow user to pause timer
+
+  // handleClear
+  // allow user to clear counter to zero
+
+  // handleStart
+  // start timer
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+
       </div>
     );
   }
