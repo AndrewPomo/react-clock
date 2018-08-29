@@ -6,9 +6,9 @@ var Timer = (props) => {
     <div className="timer">
       {/* <h2>${time}</h2> */}
       <form onChange={props.handleInput}>
-        <input placeholder="hrs"></input>
-        <input placeholder="mins"></input>
-        <input placeholder="seconds"></input>
+        <input maxlength="2" placeholder="hrs" name="hours"></input>
+        <input maxlength="2" placeholder="mins" name="minutes"></input>
+        <input maxlength="2" placeholder="seconds" name="seconds"></input>
       </form>
       {/* buttons */}
     </div>
