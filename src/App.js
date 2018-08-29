@@ -18,6 +18,7 @@ class App extends Component {
     // this.handlePause = this.handleSSN.bind(this);
     // this.handleReset = this.handleReset.bind(this);
     this.handleStart = this.handleStart.bind(this);
+    this.tick = this.tick.bind(this);
   }
 
 
@@ -31,14 +32,28 @@ class App extends Component {
   }
 
   handleStart() {
-    let hours = parseInt(this.state.hours);
-    let minutes = parseInt(this.state.minutes);
-    let seconds = parseInt(this.state.seconds);
-    let validStart =  hours + minutes + seconds > 0;
+    const hours = parseInt(this.state.hours);
+    const minutes = parseInt(this.state.minutes);
+    const seconds = parseInt(this.state.seconds);
+    const tick = this.tick
+    const validStart =  hours + minutes + seconds > 0;
     if (validStart && this.state.running === false) {
-      // setInterval(tick, 1000);
-      this.setState({running: true});
+      this.setState({
+        running: true,
+        interval: setInterval(tick, 1000)
+      });
     }
+  }
+
+  tick() {
+    let seconds = parseInt(this.state.seconds);
+    if (seconds > 0) {
+      seconds -= 1;
+    } else {
+      clearInterval(this.state.interval);
+    }
+    this.setState({seconds});
+
   }
 
   // handlePause
