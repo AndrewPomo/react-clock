@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 
-var Timer = ({handleInput, handleStart, handlePause, handleReset, time, active}) => {
+const Timer = ({handleInput, handleStart, handlePause, handleReset, time, active}) => {
   if (active === true) {
     return(
       <div className="timer">
