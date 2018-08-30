@@ -98,8 +98,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Welcome to The Timer</h1>
-        <p>The interesting thing about this timer is that it is a timer.</p>
-        <p>To use the timer, use it like you use all other timers.</p>
+        <p>Use the timer to time.</p>
         <Timer 
           handleInput={this.handleInput}
           handleStart={this.handleStart}

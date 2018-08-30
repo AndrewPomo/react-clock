@@ -10,13 +10,12 @@ var Timer = ({handleInput, handleStart, handlePause, handleReset, time, active})
         <button onClick={handleReset}>Reset</button>
       </div>
     )
-
   } else {
     return(
       <div className="timer">
         <form onChange={handleInput}>
-          <input maxLength="2" placeholder="hrs" name="hours"></input>
-          <input maxLength="2" placeholder="mins" name="minutes"></input>
+          <input maxLength="2" placeholder="hours" name="hours"></input>
+          <input maxLength="2" placeholder="minutes" name="minutes"></input>
           <input maxLength="2" placeholder="seconds" name="seconds"></input>
         </form>
         <button onClick={handleStart}>Start</button>
