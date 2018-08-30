@@ -8,23 +8,22 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hours: '00',
-      minutes: '00',
-      seconds: '00',
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
       active: false,
       paused: false
     };
 
     this.handleInput = this.handleInput.bind(this);
-    this.handlePlayPause = this.handlePlayPause.bind(this);
-    // this.handleReset = this.handleReset.bind(this);
+    this.handlePause = this.handlePause.bind(this);
+    this.handleReset = this.handleReset.bind(this);
     this.handleStart = this.handleStart.bind(this);
     this.tick = this.tick.bind(this);
   }
 
   handleInput(e) {
-    // allow user to input their desired countdown time
-    if (this.state.active === false) {
+    if (!this.state.active) {
       const newState = {};
       const val = e.target.value;
       newState[e.target.name] = val.length === 1 ? `0${val}` : val;
@@ -33,12 +32,10 @@ class App extends Component {
   }
 
   handleStart() {
-    const hours = parseInt(this.state.hours);
-    const minutes = parseInt(this.state.minutes);
-    const seconds = parseInt(this.state.seconds);
+    const {hours, minutes, seconds} = this.state;
     const tick = this.tick
-    const validStart =  hours + minutes + seconds > 0;
-    if (validStart && this.state.active === false) {
+    const validStart =  (hours + minutes + seconds) > 0;
+    if (validStart && !this.state.active) {
       this.setState({
         active: true,
         interval: setInterval(tick, 1000)
@@ -47,10 +44,7 @@ class App extends Component {
   }
 
   tick() {
-    let seconds = parseInt(this.state.seconds);
-    let minutes = parseInt(this.state.minutes);
-    let hours = parseInt(this.state.hours);
-    // if there 
+    let {hours, minutes, seconds} = this.state;
     if (seconds > 0) {
       seconds -= 1;
     } else if (minutes > 0) {
@@ -64,41 +58,54 @@ class App extends Component {
       clearInterval(this.state.interval);
       this.setState({active:false});
     }
-
-    seconds = seconds < 10 ? `0${seconds}` : seconds;
-    minutes = minutes < 10 ? `0${minutes}` : minutes;
-    hours = hours < 10 ? `0${hours}` : hours;
     
     this.setState({seconds, minutes, hours});
 
   }
 
-  handlePlayPause() {
+  handlePause() {
     const tick = this.tick
-    if (this.state.paused === false) {
+    if (!this.state.paused) {
       clearInterval(this.state.interval);
       this.setState({paused: true});
     } else {
       this.setState({
-        paused: true,
+        paused: false,
         interval: setInterval(tick, 1000)
       });
     }
   }
 
-  // handleReset
+  handleReset() {
+    this.setState({
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      active: false,
+      paused: false
+    })
+  }
+
+  padNums(num) {
+    return num < 10 ? `0${num}`: '' + num;
+  }
 
   render() {
+    const { hours, minutes, seconds } = this.state;
+    const [hourStr, minuteStr, secondStr] = [hours, minutes, seconds].map(this.padNums);
+    const time = hourStr + ':' + minuteStr + ':' + secondStr;
+
     return (
       <div className="App">
-        <h1>Welcome to the Timer</h1>
+        <h1>Welcome to The Timer</h1>
         <p>The interesting thing about this timer is that it is a timer.</p>
         <p>To use the timer, use it like you use all other timers.</p>
         <Timer 
           handleInput={this.handleInput}
           handleStart={this.handleStart}
-          handlePlayPause={this.handlePlayPause}
-          time={`${this.state.hours}:${this.state.minutes}:${this.state.seconds}`}
+          handlePause={this.handlePause}
+          handleReset={this.handleReset}
+          time={time}
           active={this.state.active}
         ></Timer>
       </div>
